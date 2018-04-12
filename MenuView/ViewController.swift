@@ -16,8 +16,12 @@ class ViewController: UIViewController {
         
         let menuView = MenuView(frame: CGRect(x: 0, y: 100, width: view.bounds.width, height: 100))
         menuView.backgroundColor = .red
-        menuView.config.buttonBackgroundColor = .green 
-        menuView.texts = ["语文", "数学", "英语", "生物", "地理", "化学", "政治", "历史", "思想道德"]
+//        menuView.texts = ["语文", "数学", "英语", "生物", "地理", "化学", "政治", "历史", "思想道德"]
+        menuView.setTexts(["语文", "数学", "英语", "生物", "地理", "化学", "政治", "历史", "思想道德"]) { (config) in
+            config.buttonBackgroundColor = .green
+            config.buttonSelectedBackgroundColor = .cyan
+        }
+        
         self.view.addSubview(menuView)
     }
 
