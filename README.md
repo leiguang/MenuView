@@ -15,5 +15,9 @@
   var selectedIndexChangedCallback: ((Int)->Void)?
 - 主动选中某index:
   func selectButtonAt(_ index: Int)
+- 给位于index标题的右上角添加小红点：
+  func addReddot(at index: Int)
+- 移除位于index的小红点:
+  func removeReddot(at index: Int)
 
 ![MenuView](https://github.com/leiguang/MenuView/blob/master/MenuView.gif)

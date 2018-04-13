@@ -63,6 +63,9 @@ public class MenuView: UIScrollView {
         var indicatorHeight: CGFloat = 3
         /// 指示器颜色
         var indicatorColor: UIColor = .green
+        
+        /// 小红点半径（默认是4）
+        var reddotRadius: CGFloat = 4
     }
     
     
@@ -78,6 +81,8 @@ public class MenuView: UIScrollView {
     
     /// 选中位于index的button
     public func selectButtonAt(_ index: Int) {
+        guard index <= self.buttons.count - 1 else { return }
+        
         self.setButtonSelectedState(at: index)
         
         if self.selectedIndex == index {
@@ -99,6 +104,31 @@ public class MenuView: UIScrollView {
     /// 切换了选中按钮时才会回调
     public var selectedIndexChangedCallback: ((Int)->Void)?
     
+    // MARK: - 添加红点
+    public func addReddot(at index: Int) {
+        guard index <= self.buttons.count - 1 else { return }
+        
+        // 确保该index不存在小红点，如果有，则不再重复添加
+        guard self.viewWithTag(self.reddotBaseTag + index) == nil else { return }
+        
+        // 由于一般不要在UIControl控件上添加view（有可能会发生奇怪的错误），所以还是将红点添加到MenuView上
+        let radius = config.reddotRadius
+        let buttonFrame = self.buttons[index].frame
+        let reddotFrame = CGRect(x: buttonFrame.maxX - radius * 1.5, y: buttonFrame.minY + radius * 0.5, width: radius * 2, height: radius * 2)
+        
+        let reddot = UIView(frame: reddotFrame)
+        reddot.backgroundColor = UIColor.red
+        reddot.tag = self.reddotBaseTag + index
+        reddot.layer.cornerRadius = radius
+        self.addSubview(reddot)
+    }
+    
+    // MARK: - 移除红点
+    public func removeReddot(at index: Int) {
+        guard index <= self.buttons.count - 1 else { return }
+        guard let reddot = self.viewWithTag(self.reddotBaseTag + index) else { return }
+        reddot.removeFromSuperview()
+    }
     
     
     // MARK: - Private Implementions
@@ -109,8 +139,10 @@ public class MenuView: UIScrollView {
     private var texts: [String] = []
     /// 按钮数组
     private var buttons: [UIButton] = []
-    /// 为防止和其他view的tag值冲突，定义一个较大的按钮基础tag值，每个按钮的 tag = buttonBaseTag + index
+    /// 为防止和其他view的tag值冲突，定义一个较大的按钮的基础tag值，每个按钮的 tag = buttonBaseTag + index
     private let buttonBaseTag: Int = 1000
+    /// 为防止和其他view的tag值冲突，定义一个较大的红点的基础tag值，每个小红点的 tag = reddotBaseTag + index
+    private let reddotBaseTag: Int = 2000
     /// 按钮的指示器
     private lazy var indicator = CALayer()
  
@@ -198,6 +230,8 @@ public class MenuView: UIScrollView {
     /// - 2.如果视图可滚动，还需要设置被选中的按钮尽量偏移到视图正中间
     /// - 3.如果显示滚动指示器，则设置其大小位置
     private func setButtonSelectedState(at index: Int) {
+        guard index <= self.buttons.count - 1 else { return }
+        
         // 1.
         for (i, button) in self.buttons.enumerated() {
             let text = self.texts[i]
@@ -266,6 +300,7 @@ public class MenuView: UIScrollView {
         ]
         return attrs
     }
+    
 }
 
 
