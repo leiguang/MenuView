@@ -1,7 +1,8 @@
 # [MenuView](https://github.com/leiguang/MenuView)
 
-多个标题栏视图。
-使用时只需要"func setTexts(_ texts: [String], config: ((Config)->Void)? = nil)"设置标题及视图配置，
+### 多个标题栏视图。
+
+使用"func setTexts(_ texts: [String], config: ((Config)->Void)? = nil)"设置标题及视图配置。<br>
 当视图的宽度比内容宽度小时，可以左右滑动；反之不能滑动。
 
 - 获取当前被选中的button的index:
