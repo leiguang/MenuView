@@ -1,11 +1,18 @@
 # [MenuView](https://github.com/leiguang/MenuView)
 
-
-
 多个标题栏视图。
-使用时只需要"setTexts(...)"设置标题，当视图的宽度比内容宽度小时，自动可以左右滚动；反之不能滑动。
-提供了三个点击的回调事件"selectedCallback"、“selectedRepeatedCallback”、“selectedIndexChangedCallback”。
-提供了一个主动选中的方法”selectedIndex(at: )“。
-- Note: 没有对AutoLayout做适配，用代码创建的话请使用先设置menuView.frame，再用“setTexts(..)”赋值
+使用时只需要"func setTexts(_ texts: [String], config: ((Config)->Void)? = nil)"设置标题及视图配置，
+当视图的宽度比内容宽度小时，可以左右滑动；反之不能滑动。
 
-![MenuView](https://github.com/leiguang/MenuView/MenuView.gif)
+- 获取当前被选中的button的index:
+  private(set) var selectedIndex: Int = 0
+- 按钮被点击的回调（只要按钮被点击就回走这个回调）:
+  var selectedCallback: ((Int)->Void)?
+- 按钮已被选中，再次被重复点击时才会回调:
+  var selectedRepeatedCallback: ((Int)->Void)?
+- 切换了选中按钮时才会回调:
+  var selectedIndexChangedCallback: ((Int)->Void)?
+- 主动选中某index:
+  func selectButtonAt(_ index: Int)
+
+![MenuView](https://github.com/leiguang/MenuView/blob/master/MenuView.gif)
