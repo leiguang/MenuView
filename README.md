@@ -7,3 +7,5 @@
 提供了三个点击的回调事件"selectedCallback"、“selectedRepeatedCallback”、“selectedIndexChangedCallback”。
 提供了一个主动选中的方法”selectedIndex(at: )“。
 - Note: 没有对AutoLayout做适配，用代码创建的话请使用先设置menuView.frame，再用“setTexts(..)”赋值
+
+![MenuView](https://github.com/leiguang/MenuView/MenuView.gif)
