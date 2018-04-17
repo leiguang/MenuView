@@ -22,7 +22,7 @@ var kStatusBarHeight: CGFloat { return UIApplication.shared.statusBarFrame.heigh
 let kNavBarHeight: CGFloat = 44.0
 
 /// 导航栏高度 （非iPhone X：高64pt； iPhone X：高88pt）
-let kNavigationHeight: CGFloat = kStatusBarHeight + kNavBarHeight
+let kNaviHeight: CGFloat = kStatusBarHeight + kNavBarHeight
 
 /// tabBarController高度 （非iPhone X：底部TabBar高49px； iPhone X：底部TabBar高83pt）
 let kTabBarHeight: CGFloat = kDevice_Is_iPhoneX ? (49.0 + 34.0) : 49.0

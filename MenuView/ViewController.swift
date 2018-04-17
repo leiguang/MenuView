@@ -22,9 +22,14 @@ class ViewController: UIViewController {
     
     @objc func tapMenuViewController() {
         
-        let vc = MenuSingleViewController()
-        let vc2 = MenuSingleViewController()
-        let menuVC = MenuViewController(viewControllers: [vc, vc2])
+        let vc = HomeChildViewController()
+        vc.isCurrent = true 
+        let vc2 = HomeChildViewController2()
+//        let vc3 = HomeChildViewController()
+        let menuVCFrame = CGRect(x: 0, y: kNaviHeight, width: kScreenWidth, height: kScreenHeight - kNaviHeight)
+//        let menuVC = HomeViewController(frame: menuVCFrame, viewControllers: [vc, vc2, vc3])
+        let menuVC = HomeViewController(frame: menuVCFrame, viewControllers: [vc, vc2])
+//        menuVC.view.frame = CGRect(x: 0, y: kNaviHeight, width: kScreenWidth, height: kScreenHeight - kNaviHeight)
         self.show(menuVC, sender: nil)
     }
     
