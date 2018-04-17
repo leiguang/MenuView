@@ -13,6 +13,9 @@
 		9A6B1526207F3CC000113D1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B1525207F3CC000113D1B /* Assets.xcassets */; };
 		9A6B1529207F3CC000113D1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B1527207F3CC000113D1B /* LaunchScreen.storyboard */; };
 		9A6B1531207F3D0A00113D1B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B1530207F3D0A00113D1B /* MenuView.swift */; };
+		9A79E5212085E1E70005D80F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5202085E1E70005D80F /* MenuViewController.swift */; };
+		9A79E5232085E5A80005D80F /* MenuSingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5222085E5A80005D80F /* MenuSingleViewController.swift */; };
+		9A79E5252085E7E40005D80F /* Constants+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5242085E7E40005D80F /* Constants+View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		9A6B1528207F3CC000113D1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A6B152A207F3CC000113D1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A6B1530207F3D0A00113D1B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		9A79E5202085E1E70005D80F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9A79E5222085E5A80005D80F /* MenuSingleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSingleViewController.swift; sourceTree = "<group>"; };
+		9A79E5242085E7E40005D80F /* Constants+View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Constants+View.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 				9A6B151E207F3CBF00113D1B /* AppDelegate.swift */,
 				9A6B1520207F3CBF00113D1B /* ViewController.swift */,
 				9A6B1530207F3D0A00113D1B /* MenuView.swift */,
+				9A79E5202085E1E70005D80F /* MenuViewController.swift */,
+				9A79E5222085E5A80005D80F /* MenuSingleViewController.swift */,
+				9A79E5242085E7E40005D80F /* Constants+View.swift */,
 				9A6B1522207F3CBF00113D1B /* Main.storyboard */,
 				9A6B1525207F3CC000113D1B /* Assets.xcassets */,
 				9A6B1527207F3CC000113D1B /* LaunchScreen.storyboard */,
@@ -140,7 +149,10 @@
 			files = (
 				9A6B1521207F3CBF00113D1B /* ViewController.swift in Sources */,
 				9A6B1531207F3D0A00113D1B /* MenuView.swift in Sources */,
+				9A79E5232085E5A80005D80F /* MenuSingleViewController.swift in Sources */,
 				9A6B151F207F3CBF00113D1B /* AppDelegate.swift in Sources */,
+				9A79E5252085E7E40005D80F /* Constants+View.swift in Sources */,
+				9A79E5212085E1E70005D80F /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

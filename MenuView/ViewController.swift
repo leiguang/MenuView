@@ -15,6 +15,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        menuViewDemo()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MenuViewController", style: .plain, target: self, action: #selector(tapMenuViewController))
+    }
+    
+    @objc func tapMenuViewController() {
+        
+        let vc = MenuSingleViewController()
+        let vc2 = MenuSingleViewController()
+        let menuVC = MenuViewController(viewControllers: [vc, vc2])
+        self.show(menuVC, sender: nil)
+    }
+    
+    func menuViewDemo() {
         // 1.
         var rect = CGRect(x: 0, y: 100, width: view.bounds.size.width, height: 44)
         let menu1 = MenuView(frame: rect)
@@ -41,7 +55,7 @@ class ViewController: UIViewController {
         let menu3 = MenuView(frame: rect)
         menu3.setTexts(["语文", "数学", "英语政治"])
         view.addSubview(menu3)
- 
+        
         
         // 4.
         rect.origin.y += 90
