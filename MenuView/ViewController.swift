@@ -15,8 +15,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        menuViewDemo()
+        menuViewDemo()
         
+        // Menu View Controller
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MenuViewController", style: .plain, target: self, action: #selector(tapMenuViewController))
     }
     
@@ -25,12 +26,30 @@ class ViewController: UIViewController {
         let vc = HomeChildViewController()
         vc.isCurrent = true 
         let vc2 = HomeChildViewController2()
-//        let vc3 = HomeChildViewController()
-        let menuVCFrame = CGRect(x: 0, y: kNaviHeight, width: kScreenWidth, height: kScreenHeight - kNaviHeight)
-//        let menuVC = HomeViewController(frame: menuVCFrame, viewControllers: [vc, vc2, vc3])
-        let menuVC = HomeViewController(frame: menuVCFrame, viewControllers: [vc, vc2])
-//        menuVC.view.frame = CGRect(x: 0, y: kNaviHeight, width: kScreenWidth, height: kScreenHeight - kNaviHeight)
+        let vc3 = HomeChildViewController()
+        let frame = CGRect(x: 0, y: kNaviHeight, width: kScreenWidth, height: kScreenHeight - kNaviHeight)
+        let menuVC = HomeViewController(frame: frame, count: 3) { (index) -> UIViewController? in
+            switch index {
+            case 0:
+                print("case 0")
+                return vc
+            case 1:
+                print("case 1")
+                return vc2
+            case 2:
+                print("case 2")
+                return vc3
+            default:
+                print("default")
+                return nil
+            }
+        }
+
+        
         self.show(menuVC, sender: nil)
+        
+      
+        
     }
     
     func menuViewDemo() {

@@ -301,6 +301,9 @@ public class MenuView: UIScrollView {
         return attrs
     }
     
+    deinit {
+        print("\(self) deinit")
+    }
 }
 
 

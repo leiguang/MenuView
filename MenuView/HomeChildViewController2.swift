@@ -10,6 +10,9 @@ import UIKit
 
 class HomeChildViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var name: String = ""
+    var age: Int = 0
+    
     let datas: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     
     var tableView: UITableView!
@@ -102,4 +105,7 @@ class HomeChildViewController2: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    deinit {
+        print("\(self) deinit")
+    }
 }

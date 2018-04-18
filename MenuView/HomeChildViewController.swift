@@ -103,4 +103,7 @@ class HomeChildViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    deinit {
+        print("\(self) deinit")
+    }
 }
