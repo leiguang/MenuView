@@ -24,7 +24,8 @@ protocol HomeChildViewControllerScrollDelegate: class {
 
 class HomeViewController: MenuViewController, HomeChildViewControllerScrollDelegate {
 
-    var containerView: UIView?
+    /// 提前初始化是因为 父类MenuViewController的初始化会回调childViewControllerEndScroll方法，或者设置为可选的，在该方法childViewControllerEndScroll中不强制解包.
+    var containerView = UIView()
     
     /// container view 初始位置
     let containerViewStartFrame: CGRect = CGRect(x: 0, y: 0, width: kScreenWidth, height: 300)
@@ -42,15 +43,16 @@ class HomeViewController: MenuViewController, HomeChildViewControllerScrollDeleg
         
         
         
-        containerView = UIView(frame: containerViewStartFrame)
-        containerView!.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        containerView!.isUserInteractionEnabled = false
-        self.view.addSubview(containerView!)
+//        containerView = UIView(frame: containerViewStartFrame)
+        containerView.frame = containerViewStartFrame
+        containerView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        containerView.isUserInteractionEnabled = false
+        self.view.addSubview(containerView)
 
         let button = UIButton(frame: CGRect(x: 100, y: 250, width: 100, height: buttonHeight))
         button.backgroundColor = #colorLiteral(red: 0, green: 0.9914394021, blue: 1, alpha: 1)
         button.setTitle("button", for: .normal)
-        containerView!.addSubview(button)
+        containerView.addSubview(button)
     }
 
     
@@ -109,11 +111,11 @@ class HomeViewController: MenuViewController, HomeChildViewControllerScrollDeleg
         
         if frame.origin.y >= containerViewEndFrame.origin.y {
             UIView.animate(withDuration: 0.25) {
-                self.containerView?.frame = frame
+                self.containerView.frame = frame
             }
         } else {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                self.containerView?.frame = self.containerViewEndFrame
+                self.containerView.frame = self.containerViewEndFrame
             }, completion: nil)
         }
         
@@ -124,7 +126,7 @@ class HomeViewController: MenuViewController, HomeChildViewControllerScrollDeleg
         print("offsetY: \(offsetY)")
         self.lastOffsetY = offsetY
         
-        if containerView?.frame == containerViewEndFrame {
+        if containerView.frame == containerViewEndFrame {
             // 如果滑到了顶端，如果其他子视图没到顶端的话，就要设置其偏移到顶端，否则就不用设置了.
             // 子视图
             for (index, viewController) in self.viewControllers {

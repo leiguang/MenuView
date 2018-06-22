@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// 多个标题栏视图。
+/// 多个标题栏视图。（如“推荐”、“热点”、“视频”）
 /// 使用时只需要"setTexts(...)"设置标题，当视图的宽度比内容宽度小时，自动可以左右滚动；反之不能滑动。
 /// 提供了三个点击的回调事件"selectedCallback"、“selectedRepeatedCallback”、“selectedIndexChangedCallback”，以及一个主动选中的方法”selectedIndex(at: )“
 /// - Note: 没有对AutoLayout做适配，用代码创建的话请使用先设置menuView.frame，再用“setTexts(..)”赋值
@@ -73,6 +73,7 @@ public class MenuView: UIScrollView {
     // MARK: - Public Interface
     
     /// 设置标题，配置视图参数（MenuView.Config: 颜色、间距、字体大小...）
+    /// 重复调用此方法会移除之前的内容并重新设置、布局
     public func setTexts(_ texts: [String], config: ((Config)->Void)? = nil) {
         self.texts = texts
         config?(self.config)
@@ -95,12 +96,47 @@ public class MenuView: UIScrollView {
         selectedCallback?(index)
     }
     
+    /// 更新下划线indicator的偏移进度百分比
+    public func updateIndicator(progress: CGFloat) {
+        if let startX = self.buttons.first?.frame.midX, let endX = self.buttons.last?.frame.midX {
+            var x: CGFloat = 0
+            if progress < 0 {
+                x = startX
+            } else if progress > 1 {
+                x = endX
+            } else {
+                x = (endX - startX) * progress
+            }
+            self.indicator.position = CGPoint(x: x, y: self.indicator.position.y)
+        }
+    }
+    
+    /// 移除之前所有的内容button、indicator、小红点， 重新添加，默认选中第一个
+    public func reload() {
+        for (index, button) in self.buttons.enumerated() {
+            button.removeFromSuperview()
+            removeReddot(at: index)
+        }
+        self.indicator.removeFromSuperlayer()
+        
+        addButtons()
+    }
+    
+    /// 默认配置
+    public var config: Config = Config()
+    
+    /// 文本数组
+    public var texts: [String] = []
+    
     /// 获取当前被选中的button的index
     private(set) var selectedIndex: Int = 0
     /// 按钮被点击的回调（只要按钮被点击就回走这个回调）
+    
     public var selectedCallback: ((Int)->Void)?
     /// 按钮已被选中，再次被重复点击时才会回调
+    
     public var selectedRepeatedCallback: ((Int)->Void)?
+    
     /// 切换了选中按钮时才会回调
     public var selectedIndexChangedCallback: ((Int)->Void)?
     
@@ -133,10 +169,7 @@ public class MenuView: UIScrollView {
     
     // MARK: - Private Implementions
     
-    /// 默认配置
-    private var config: Config = Config()
-    /// 文本数组
-    private var texts: [String] = []
+    
     /// 按钮数组
     private var buttons: [UIButton] = []
     /// 为防止和其他view的tag值冲突，定义一个较大的按钮的基础tag值，每个按钮的 tag = buttonBaseTag + index
@@ -145,7 +178,7 @@ public class MenuView: UIScrollView {
     private let reddotBaseTag: Int = 2000
     /// 按钮的指示器
     private lazy var indicator = CALayer()
- 
+    
     
     /// 添加文本按钮，配置视图
     private func addButtons() {
@@ -159,7 +192,7 @@ public class MenuView: UIScrollView {
         self.buttons.removeAll()
         
         guard self.texts.count > 0 else { return }
-
+        
         
         // button.size数组
         let buttonSizes: [CGSize] = self.texts.map(calculateButtonWidth)
@@ -232,7 +265,7 @@ public class MenuView: UIScrollView {
     private func setButtonSelectedState(at index: Int) {
         guard index <= self.buttons.count - 1 else { return }
         
-        // 1.
+        // 1.设置按钮的选中状态，并遍历设置其他按钮为非选中状态
         for (i, button) in self.buttons.enumerated() {
             let text = self.texts[i]
             if index == i { // 被选中
@@ -250,7 +283,7 @@ public class MenuView: UIScrollView {
             }
         }
         
-        // 2.
+        // 2.如果视图可滚动，还需要设置被选中的按钮尽量偏移到视图正中间
         if self.isScrollEnabled {
             let button = self.buttons[index]
             // 计算被选中按钮的中心点 到scrollView中心点的偏移量
@@ -265,7 +298,7 @@ public class MenuView: UIScrollView {
             self.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
         }
         
-        // 3.
+        // 3.如果显示滚动指示器，则设置其大小位置
         if config.isShowIndicator {
             let button = self.buttons[index]
             let indicatorWidth = (button.bounds.width - config.buttonInnerTextHorizontalSpacing * 2) * config.indicatorWidthRatio
@@ -274,7 +307,7 @@ public class MenuView: UIScrollView {
             self.indicator.position = CGPoint(x: button.center.x, y: self.bounds.height - indicatorHeight / 2)
         }
     }
-
+    
     /// 计算按钮宽高 (根据给出的文字、以及配置的Config参数，如：button宽度 = 文字宽度 + 按钮内部文字到button左右边框间距)
     private func calculateButtonWidth(_ text: String) -> CGSize {
         let textSize = (text as NSString).size(withAttributes: self.textAttrs)
@@ -288,7 +321,7 @@ public class MenuView: UIScrollView {
         let attrs: [NSAttributedStringKey: Any] = [
             .font: config.textFont,
             .foregroundColor: config.textColor,
-        ]
+            ]
         return attrs
     }
     
@@ -297,7 +330,7 @@ public class MenuView: UIScrollView {
         let attrs: [NSAttributedStringKey: Any] = [
             .font: config.textSelectedFont,
             .foregroundColor: config.textSelectedColor,
-        ]
+            ]
         return attrs
     }
     
@@ -305,5 +338,3 @@ public class MenuView: UIScrollView {
         print("\(self) deinit")
     }
 }
-
-

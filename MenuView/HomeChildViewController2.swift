@@ -13,7 +13,7 @@ class HomeChildViewController2: UIViewController, UITableViewDataSource, UITable
     var name: String = ""
     var age: Int = 0
     
-    let datas: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    let datas: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     
     var tableView: UITableView!
     
@@ -34,7 +34,7 @@ class HomeChildViewController2: UIViewController, UITableViewDataSource, UITable
         tableView.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: "MyTableViewCell")
         self.view.addSubview(tableView)
         
         
@@ -71,7 +71,7 @@ class HomeChildViewController2: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell", for: indexPath)
         cell.textLabel?.text = "\(datas[indexPath.row])"
         return cell
     }

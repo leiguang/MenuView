@@ -8,12 +8,10 @@
 
 import UIKit
 
-
-
-
+/// 可以左右滚动的视图控制器，例如主页的“头条、热点”
 class MenuViewController: UIViewController, UIScrollViewDelegate {
     
-
+    
     // MARK: - Public Interface
     
     /// 创建MenuViewController
@@ -33,17 +31,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
     /// 要创建的视图控制器个数
     var count: Int
     
-    /// 根据对应的index来创建view controller
-    private var createViewControllerAtIndex: ((Int)->UIViewController?)
-    
     /// 当前视图控制器所在的index，默认为0
     var currentIndex: Int = 0
     
     /// 存储子视图控制器的字典，key为对应的索引"index"
     var viewControllers: [Int: UIViewController] = [:]
-    
-    /// 水平滑动的scrollView
-    private var scrollView: UIScrollView!
     
     /// 当前的子视图控制器
     var currentViewController: UIViewController? {
@@ -53,12 +45,21 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
             return nil
         }
     }
-
+    
     /// index改变了的回调
     var indexChangedCallback: ((Int)->Void)?
     
-    /// 水平滑动偏移量的回调 参数：水平偏移量offsetX
-    var scrolledCallback: ((CGFloat)->Void)?
+    /// 水平滑动偏移量的回调 参数：水平偏移量offsetX，值在区间[0, 1]内
+    var scrollProgressCallback: ((CGFloat)->Void)?
+    
+    
+    
+    /// 根据对应的index来创建view controller
+    private var createViewControllerAtIndex: ((Int)->UIViewController?)
+    
+    /// 水平滑动的scrollView
+    private var scrollView: UIScrollView!
+    
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,7 +69,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
-        view.backgroundColor = .white 
+        view.backgroundColor = .white
         
         addScrollView()
         addViewController(at: self.currentIndex)
@@ -86,7 +87,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK:
-    func addScrollView() {
+    private func addScrollView() {
         scrollView = UIScrollView()
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false
@@ -133,13 +134,15 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
         let offsetX = scrollView.contentOffset.x
         let width = scrollView.bounds.width
         
+        if width == 0 { return }
+        
         // 1. 如果滚动到还没有创建的viewController，则创建
         // 向左滚动时，即将滚动到的index
         let leftWillIndex = Int(floor(offsetX / width))
         if leftWillIndex < count && self.viewControllers[leftWillIndex] == nil {
             addViewController(at: leftWillIndex)
         }
-
+        
         // 2. 向右滚动时，即将滚动到的index
         let rightWillIndex = Int(ceil(offsetX / width))
         if rightWillIndex < count && self.viewControllers[rightWillIndex] == nil {
@@ -154,30 +157,32 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
                 self.indexDidChange(to: index)
             }
         }
-
         
-//        // 4. 偏移进度百分比
-        let progress = offsetX / (width * CGFloat(count - 1))
+        
+        // 4. 偏移进度百分比
+        var progress = offsetX / (width * CGFloat(count - 1))
+        if progress < 0 {
+            progress = 0
+        } else if progress > 0 {
+            progress = 1
+        }
         self.progressDidChange(to: progress)
         
-        // 4. 水平滑动偏移量回调
-        self.scrolledCallback?(offsetX)
         
-        
-        print("****************************************************")
-        print("offsetX: \(offsetX)")
-        print("width: \(width)")
-        print("leftWillIndex: \(leftWillIndex)")
-        print("rightWillIndex: \(rightWillIndex)")
-        print("currentIndex: \(self.currentIndex)")
-        print("progress: \(progress)")
-        print("\n")
-        print("isDragging: \(scrollView.isDragging)")
-        print("isTracking: \(scrollView.isTracking)")
-        print("isDecelerating: \(scrollView.isDecelerating)")
-        print("****************************************************")
+        //        print("****************************************************")
+        //        print("offsetX: \(offsetX)")
+        //        print("width: \(width)")
+        //        print("leftWillIndex: \(leftWillIndex)")
+        //        print("rightWillIndex: \(rightWillIndex)")
+        //        print("currentIndex: \(self.currentIndex)")
+        //        print("progress: \(progress)")
+        //        print("\n")
+        //        print("isDragging: \(scrollView.isDragging)")
+        //        print("isTracking: \(scrollView.isTracking)")
+        //        print("isDecelerating: \(scrollView.isDecelerating)")
+        //        print("****************************************************")
     }
-   
+    
     /// 当当前index发生改变时调用，用于子类继承，通知index更改了而做相应操作
     func indexDidChange(to index: Int) {
         self.currentIndex = index
@@ -186,7 +191,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate {
     
     /// 偏移进度百分比
     func progressDidChange(to progress: CGFloat) {
-        
+        self.scrollProgressCallback?(progress)
     }
     
     deinit {

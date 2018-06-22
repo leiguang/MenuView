@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     @objc func tapMenuViewController() {
-        
+
         let vc = HomeChildViewController()
         vc.isCurrent = true 
         let vc2 = HomeChildViewController2()
@@ -47,9 +47,6 @@ class ViewController: UIViewController {
 
         
         self.show(menuVC, sender: nil)
-        
-      
-        
     }
     
     func menuViewDemo() {

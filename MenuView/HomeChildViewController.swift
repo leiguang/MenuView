@@ -8,10 +8,26 @@
 
 import UIKit
 
+class MyTableViewCell: UITableViewCell {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        print(#function)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("\(self) dinit")
+    }
+}
+
 
 class HomeChildViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let datas: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    let datas: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     
     var tableView: UITableView!
     
@@ -32,7 +48,7 @@ class HomeChildViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: "MyTableViewCell")
         self.view.addSubview(tableView)
         
         
@@ -68,7 +84,7 @@ class HomeChildViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell", for: indexPath)
         cell.textLabel?.text = "\(datas[indexPath.row])"
         return cell
     }
