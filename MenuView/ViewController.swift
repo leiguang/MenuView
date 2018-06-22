@@ -45,7 +45,6 @@ class ViewController: UIViewController {
             }
         }
 
-        
         self.show(menuVC, sender: nil)
     }
     
@@ -53,35 +52,43 @@ class ViewController: UIViewController {
         // 1.
         var rect = CGRect(x: 0, y: 100, width: view.bounds.size.width, height: 44)
         let menu1 = MenuView(frame: rect)
-        menu1.setTexts(["语文"])
+        let items = MenuViewItem.createItems(["语文"])
+        menu1.setItems(items)
         view.addSubview(menu1)
         
         
         // 2.
         rect.origin.y += 90
         let menu2 = MenuView(frame: CGRect(x: 60, y: rect.origin.y, width: view.bounds.size.width-120, height: 44))
-        menu2.setTexts(["语文", "数学"]) { (config) in
-            config.backgroundColor = .purple
-            config.buttonBorderColor = .yellow
-            config.buttonSelectedBorderColor = .red
-            config.buttonBorderWidth = 1.0
-            config.buttonSelectedBorderWidth = 1.0
-            config.buttonCorner = true
+//        let items2 = MenuViewItem.createItems(["语文", "数学"]) { (config) in
+        let items2 = MenuViewItem.createItems(["Part1", "Part2&3"]) { (config) in
+            config.normalTextColor = .green
+            config.selectedTextColor = .red
+            config.normalBackgroundColor = .purple
+            config.selectedBackgroundColor = .blue
+            config.normalBorderWidth = 1.0
+            config.selectedBorderWidth = 1.0
+            config.normalBorderColor = .orange
+            config.selectedBorderColor = .cyan
+            config.needCorner = true
         }
+        menu2.setItems(items2)
         view.addSubview(menu2)
-        
-        
+
+
         // 3.
         rect.origin.y += 90
         let menu3 = MenuView(frame: rect)
-        menu3.setTexts(["语文", "数学", "英语政治"])
+        let items3 = MenuViewItem.createItems(["语文", "数学", "英语政治"])
+        menu3.setItems(items3)
         view.addSubview(menu3)
-        
-        
+
+
         // 4.
         rect.origin.y += 90
         menu4 = MenuView(frame: rect)
-        menu4.setTexts(["语文0", "数学啊1", "英语政治2", "化学3", "生物4", "地理历史5", "思想道德6"])
+        let items4 = MenuViewItem.createItems(["语文0", "数学啊1", "英语政治2", "化学3", "生物4", "地理历史5", "思想道德6"])
+        menu4.setItems(items4)
         menu4.selectedCallback = { index in
             self.showMessage("点击index：\(index)")
         }
@@ -130,7 +137,7 @@ class ViewController: UIViewController {
     }
     
     @objc func tapSelect() {
-        menu4.selectButtonAt(2)
+        menu4.selectItemAt(2)
     }
     
     @objc func tapAddReddot() {

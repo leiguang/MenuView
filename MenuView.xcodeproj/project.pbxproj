@@ -18,6 +18,8 @@
 		9A79E5212085E1E70005D80F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5202085E1E70005D80F /* MenuViewController.swift */; };
 		9A79E5232085E5A80005D80F /* HomeChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5222085E5A80005D80F /* HomeChildViewController.swift */; };
 		9A79E5252085E7E40005D80F /* Constants+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E5242085E7E40005D80F /* Constants+View.swift */; };
+		9ABDC96620DCDADE00000D8E /* MenuViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABDC96520DCDADE00000D8E /* MenuViewItem.swift */; };
+		9ABDC96820DCE89D00000D8E /* old-MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABDC96720DCE89D00000D8E /* old-MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		9A79E5202085E1E70005D80F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9A79E5222085E5A80005D80F /* HomeChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChildViewController.swift; sourceTree = "<group>"; };
 		9A79E5242085E7E40005D80F /* Constants+View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Constants+View.swift"; sourceTree = "<group>"; };
+		9ABDC96520DCDADE00000D8E /* MenuViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewItem.swift; sourceTree = "<group>"; };
+		9ABDC96720DCE89D00000D8E /* old-MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "old-MenuView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				9A6B151E207F3CBF00113D1B /* AppDelegate.swift */,
 				9A6B1520207F3CBF00113D1B /* ViewController.swift */,
 				9A6B1530207F3D0A00113D1B /* MenuView.swift */,
+				9ABDC96520DCDADE00000D8E /* MenuViewItem.swift */,
+				9ABDC96720DCE89D00000D8E /* old-MenuView.swift */,
 				9A79E5202085E1E70005D80F /* MenuViewController.swift */,
 				9A384CFF2086459200C6F12A /* HomeViewController.swift */,
 				9A79E5222085E5A80005D80F /* HomeChildViewController.swift */,
@@ -157,10 +163,12 @@
 				9A6B1531207F3D0A00113D1B /* MenuView.swift in Sources */,
 				9A79E5232085E5A80005D80F /* HomeChildViewController.swift in Sources */,
 				9A6B151F207F3CBF00113D1B /* AppDelegate.swift in Sources */,
+				9ABDC96620DCDADE00000D8E /* MenuViewItem.swift in Sources */,
 				9A79E5252085E7E40005D80F /* Constants+View.swift in Sources */,
 				9A384D002086459200C6F12A /* HomeViewController.swift in Sources */,
 				9A79E5212085E1E70005D80F /* MenuViewController.swift in Sources */,
 				9A384D02208652EC00C6F12A /* HomeChildViewController2.swift in Sources */,
+				9ABDC96820DCE89D00000D8E /* old-MenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
