@@ -23,10 +23,10 @@ public final class MenuViewItem: UIView, MenuViewItemProtocol {
         /// 被选中的文字大小（默认为16.0）
         var selectedTextFont = UIFont.systemFont(ofSize: 16)
         
-        /// 正常的背景色 (默认为nil)
-        var normalBackgroundColor: UIColor? = nil
-        /// 被选中的背景色（默认为nil）
-        var selectedBackgroundColor: UIColor? = nil
+        /// 正常的背景色 (默认为.clear，因为发现默认为nil时，title为“Part1”时label背景设置nil竟为黑色!，而title为中文时却是正常的，不可思议）
+        var normalBackgroundColor: UIColor? = .clear
+        /// 被选中的背景色（默认为.clear，因为发现默认为nil时，title为“Part1”时label背景设置nil竟为黑色!，而title为中文时却是正常的，不可思议）
+        var selectedBackgroundColor: UIColor? = .clear
         /// 正常的边框宽度 (默认为0.0)
         var normalBorderWidth: CGFloat = 0.0
         /// 被选中的边框宽度 (默认为0.0)
@@ -63,7 +63,8 @@ public final class MenuViewItem: UIView, MenuViewItemProtocol {
     
     public var tapCallback: ((Int) -> Void)? = nil
 
-    /// 可随时更改item的text （注意：若因此还需要更新MenuView中的items布局，则另需要手动调用menuView.setNeedsLayout()）
+    /// 可以随时更改item的text。
+    /// - Note: 更改后还需要更新MenuView中的items布局，必须手动调用menuView.setNeedsLayout()
     public var text: String {
         didSet {
             refreshUI()
@@ -121,6 +122,8 @@ public final class MenuViewItem: UIView, MenuViewItemProtocol {
         label.layer.cornerRadius = config.needCorner ? size.height / 2 : 0
         label.layer.masksToBounds = config.needCorner
         label.text = text
+        label.frame.size = size
+        frame.size = size
     }
 }
 

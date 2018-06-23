@@ -60,8 +60,8 @@ class ViewController: UIViewController {
         // 2.
         rect.origin.y += 90
         let menu2 = MenuView(frame: CGRect(x: 60, y: rect.origin.y, width: view.bounds.size.width-120, height: 44))
-//        let items2 = MenuViewItem.createItems(["语文", "数学"]) { (config) in
-        let items2 = MenuViewItem.createItems(["Part1", "Part2&3"]) { (config) in
+        let items2 = MenuViewItem.createItems(["语文", "数学"]) { (config) in
+//        let items2 = MenuViewItem.createItems(["Part1", "Part2&3"]) { (config) in
             config.normalTextColor = .green
             config.selectedTextColor = .red
             config.normalBackgroundColor = .purple
@@ -74,6 +74,13 @@ class ViewController: UIViewController {
         }
         menu2.setItems(items2)
         view.addSubview(menu2)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if let item = menu2.items[0] as? MenuViewItem {
+                item.text = "改变lalalala"
+                menu2.setNeedsLayout()
+            }
+        }
 
 
         // 3.
